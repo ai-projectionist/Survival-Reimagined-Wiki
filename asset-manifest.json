@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Survival-Reimagined-Wiki/static/css/main.0ce26203.css",
+    "main.js": "/Survival-Reimagined-Wiki/static/js/main.5d35873e.js",
+    "static/css/63.480b8920.chunk.css": "/Survival-Reimagined-Wiki/static/css/63.480b8920.chunk.css",
+    "static/js/63.49fed2bc.chunk.js": "/Survival-Reimagined-Wiki/static/js/63.49fed2bc.chunk.js",
+    "static/css/566.e48cef71.chunk.css": "/Survival-Reimagined-Wiki/static/css/566.e48cef71.chunk.css",
+    "static/js/566.d3b6582d.chunk.js": "/Survival-Reimagined-Wiki/static/js/566.d3b6582d.chunk.js",
+    "static/js/453.9969927c.chunk.js": "/Survival-Reimagined-Wiki/static/js/453.9969927c.chunk.js",
+    "static/js/306.130df0e9.chunk.js": "/Survival-Reimagined-Wiki/static/js/306.130df0e9.chunk.js",
+    "index.html": "/Survival-Reimagined-Wiki/index.html",
+    "main.0ce26203.css.map": "/Survival-Reimagined-Wiki/static/css/main.0ce26203.css.map",
+    "main.5d35873e.js.map": "/Survival-Reimagined-Wiki/static/js/main.5d35873e.js.map",
+    "63.480b8920.chunk.css.map": "/Survival-Reimagined-Wiki/static/css/63.480b8920.chunk.css.map",
+    "63.49fed2bc.chunk.js.map": "/Survival-Reimagined-Wiki/static/js/63.49fed2bc.chunk.js.map",
+    "566.e48cef71.chunk.css.map": "/Survival-Reimagined-Wiki/static/css/566.e48cef71.chunk.css.map",
+    "566.d3b6582d.chunk.js.map": "/Survival-Reimagined-Wiki/static/js/566.d3b6582d.chunk.js.map",
+    "453.9969927c.chunk.js.map": "/Survival-Reimagined-Wiki/static/js/453.9969927c.chunk.js.map",
+    "306.130df0e9.chunk.js.map": "/Survival-Reimagined-Wiki/static/js/306.130df0e9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0ce26203.css",
+    "static/js/main.5d35873e.js"
+  ]
+}
