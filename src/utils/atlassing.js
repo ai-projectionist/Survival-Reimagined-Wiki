@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import { ATLAS_XML_FILES } from '../config/atlasConfig';
+import { ATLAS_XML_FILES, TECH_LEVELS } from '../config/atlasConfig';
 
 export const readInventoryImages = async () => {
     try {
@@ -71,12 +71,16 @@ export const readRecipeData = async () => {
 
             // Get tech levels if they exist
             const techLevels = recipe.ingredients?.tech_levels || {};
-
+            // Filter tech levels to only include exact matches from TECH_LEVELS config
             return {
                 name: recipe.name,
                 prefab: recipe.prefab,
                 ingredients: ingredients,
-                techLevels: techLevels
+                techLevels: Object.fromEntries(
+                    Object.entries(techLevels).filter(([key, level]) =>
+                        TECH_LEVELS.some(tech => tech.techLevel === key && tech.level === level)
+                    )
+                )
             };
         });
 

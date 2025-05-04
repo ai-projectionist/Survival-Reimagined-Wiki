@@ -1,31 +1,31 @@
 import React from 'react';
+import Select from 'react-select';
 import './TechLevelFilter.css';
 
-const TechLevelFilter = ({ selectedTechLevel, onTechLevelChange }) => {
-    const techLevels = [
-        { value: '', label: 'All Tech Levels' },
-        { value: 'SCIENCE', label: 'Science' },
-        { value: 'MAGIC', label: 'Magic' },
-        { value: 'ANCIENT', label: 'Ancient' },
-        { value: 'SHADOW', label: 'Shadow' },
-        { value: 'CARTOGRAPHY', label: 'Cartography' },
-        { value: 'SEAFARING', label: 'Seafaring' },
-        { value: 'SCULPTING', label: 'Sculpting' }
+const TechLevelFilter = ({ techs, selectedTech, setSelectedTech }) => {
+    const options = [
+        { value: '-0', label: 'All Tech Levels' },
+        ...techs.map(tech => ({
+            value: `${tech.techLevel}-${tech.level}`,
+            label: tech.name
+        }))
     ];
+
+    const currentValue = options.find(
+        option => option.value === `${selectedTech.techLevel}-${selectedTech.level}`
+    ) || options[0];
 
     return (
         <div className="tech-level-filter">
-            <select
-                value={selectedTechLevel}
-                onChange={(e) => onTechLevelChange(e.target.value)}
+            <Select
+                value={currentValue}
+                onChange={(option) => setSelectedTech(option.value)}
+                options={options}
                 className="tech-level-select"
-            >
-                {techLevels.map((tech) => (
-                    <option key={tech.value} value={tech.value}>
-                        {tech.label}
-                    </option>
-                ))}
-            </select>
+                classNamePrefix="tech-select"
+                isSearchable={false}
+                menuPlacement="auto"
+            />
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { ATLAS_IMAGE_BASE_PATH } from '../config/atlasConfig';
 
 import './CroppedImage.css';
 
-const CroppedImage = ({ atlasName, displayName }) => {
+const CroppedImage = ({ atlasName, displayName, tooltipContent }) => {
     const { inventoryAtlas } = useContext(AtlasContext);
     const atlasEntry = inventoryAtlas[atlasName];
     const [isHovering, setIsHovering] = useState(false);
@@ -104,7 +104,7 @@ const CroppedImage = ({ atlasName, displayName }) => {
                     top: `${tooltipPosition.top}px`,
                     left: `${tooltipPosition.left}px`,
                 }}>
-                    {displayName || 'Name missing?'}
+                    {tooltipContent ? tooltipContent : (displayName || 'Name missing?')}
                 </div>,
                 tooltipTarget.current
             )}

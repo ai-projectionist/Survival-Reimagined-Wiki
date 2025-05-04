@@ -1,45 +1,69 @@
 import React, { useContext, useState, useMemo } from 'react';
-import CroppedImage from './CroppedImage';
 import './RecipeList.css';
 import { AtlasContext } from '../context';
 import { useDebounce } from '../hooks/useDebounce';
 import Recipe from './Recipe';
 import TechLevelFilter from './TechLevelFilter';
-
-const ItemDisplay = ({ prefab, name, amount }) => {
-    return (
-        <div className={`${amount > 1 ? 'ingredient-item' : 'result-item'}`}>
-            {prefab ? (
-                <CroppedImage
-                    atlasName={prefab}
-                    displayName={name}
-                />
-            ) : (
-                <div title={`${name} (Image not found)`} className="placeholder-image">?</div>
-            )}
-            {amount > 1 && <span className="amount">{amount}</span>}
-        </div>
-    );
-};
+import { getMatchScore } from '../utils/recipeSearch';
+import { TECH_LEVELS } from '../config/atlasConfig';
 
 const RecipeList = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const { recipes } = useContext(AtlasContext);
-    const [selectedTechLevel, setSelectedTechLevel] = useState('');
+    const [selectedTech, setSelectedTech] = useState({ techLevel: '', level: 0 });
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+    const handleTechLevelChange = (value) => {
+        const [techLevel, level] = value.split('-');
+        setSelectedTech({
+            techLevel,
+            level: parseInt(level)
+        });
+    };
+
+    const getModifiedRecipe = (recipe, bestIngredientIndex) => {
+        if (bestIngredientIndex <= 0 || !recipe.ingredients) return recipe;
+
+        const modifiedRecipe = { ...recipe };
+        modifiedRecipe.ingredients = [...recipe.ingredients];
+        const [matchedIngredient] = modifiedRecipe.ingredients.splice(bestIngredientIndex, 1);
+        modifiedRecipe.ingredients.unshift(matchedIngredient);
+        return modifiedRecipe;
+    };
+
+    const matchesFilters = (recipe, score) => {
+        const matchesTechLevel = !selectedTech.techLevel ||
+            (recipe.techLevels && recipe.techLevels[selectedTech.techLevel] === selectedTech.level);
+
+        const validSearch = debouncedSearchTerm.length >= 3 || selectedTech.techLevel || !debouncedSearchTerm;
+        const matchesSearch = !debouncedSearchTerm || score < 9999;
+
+        return matchesTechLevel && matchesSearch && validSearch;
+    };
+
+    const getNoResultsMessage = () => {
+        if (!selectedTech.techLevel && (!debouncedSearchTerm || debouncedSearchTerm.length < 3)) {
+            return "Enter at least 3 characters to search recipes or select a tech level.";
+        }
+        return "No matching recipes found.";
+    };
 
     const filteredAndSortedRecipes = useMemo(() => {
+        if (!selectedTech.techLevel && !debouncedSearchTerm) return [];
+
         return recipes
-            .filter(recipe => {
-                const matchesSearch = recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    recipe.prefab.toLowerCase().includes(searchTerm.toLowerCase());
-
-                const matchesTechLevel = !selectedTechLevel ||
-                    (recipe.techLevels && recipe.techLevels[selectedTechLevel]);
-
-                return matchesSearch && matchesTechLevel;
+            .map(recipe => {
+                const [score, bestIngredientIndex] = getMatchScore(recipe, debouncedSearchTerm);
+                const modifiedRecipe = getModifiedRecipe(recipe, bestIngredientIndex);
+                return { recipe: modifiedRecipe, score };
             })
-            .sort((a, b) => a.name.localeCompare(b.name));
-    }, [recipes, searchTerm, selectedTechLevel]);
+            .filter(({ recipe, score }) => matchesFilters(recipe, score))
+            .sort((a, b) => {
+                if (a.score !== b.score) return a.score - b.score;
+                return (a.recipe.name || '').localeCompare(b.recipe.name || '');
+            })
+            .map(({ recipe }) => recipe);
+    }, [recipes, debouncedSearchTerm, selectedTech]);
 
     return (
         <div>
@@ -52,14 +76,19 @@ const RecipeList = () => {
                     className="search-input"
                 />
                 <TechLevelFilter
-                    selectedTechLevel={selectedTechLevel}
-                    onTechLevelChange={setSelectedTechLevel}
+                    techs={TECH_LEVELS}
+                    selectedTech={selectedTech}
+                    setSelectedTech={handleTechLevelChange}
                 />
             </div>
             <div className="recipe-list-container">
-                {filteredAndSortedRecipes.map((recipe, index) => {
-                    return <Recipe key={`${recipe.prefab}-${index}`} recipe={recipe} />
-                })}
+                {filteredAndSortedRecipes.length > 0 ? (
+                    filteredAndSortedRecipes.map((recipe, index) => (
+                        <Recipe key={`${recipe.prefab}-${index}`} recipe={recipe} />
+                    ))
+                ) : (
+                    <div className="loading">{getNoResultsMessage()}</div>
+                )}
             </div>
         </div>
     );
