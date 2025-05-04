@@ -1,5 +1,143 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #1e1e1e;
+  box-sizing: border-box;
+}
+
+.app-header {
+  width: 100%;
+  background: linear-gradient(to bottom, #2a2a2a, #1e1e1e);
+  padding: 20px;
+  border-bottom: 2px solid #333;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #444, transparent);
+}
+
+.wiki-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2.4rem;
+  color: #e0e0e0;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.wiki-title::before,
+.wiki-title::after {
+  content: '❖';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.wiki-title::before {
+  left: -40px;
+}
+
+.wiki-title::after {
+  right: -40px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 85px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tab-navigation {
+  width: 250px;
+  background-color: #2a2a2a;
+  padding: 20px 0;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.tab-button {
+  width: 100%;
+  padding: 15px 25px;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.tab-button::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #666;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #333;
+  color: #fff;
+  padding-left: 30px;
+}
+
+.tab-button:hover::before {
+  transform: scaleY(1);
+}
+
+.tab-button.active {
+  background-color: #333;
+  color: #fff;
+  border-left: 3px solid #666;
+  padding-left: 30px;
+}
+
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  box-sizing: border-box;
 }
 
 .App-logo {
@@ -32,7 +170,63 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.loading-fallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+/* Mobile Responsive Design */
+@media screen and (max-width: 768px) {
+  .app-header {
+    padding: 15px;
+  }
+
+  .wiki-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .wiki-title::before,
+  .wiki-title::after {
+    display: none;
+  }
+
+  .main-content {
+    flex-direction: column;
+    min-height: calc(100vh - 75px);
+  }
+
+  .tab-navigation {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+  }
+
+  .tab-button {
+    text-align: center;
+    padding: 12px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab-button:hover,
+  .tab-button.active {
+    padding-left: 12px;
+  }
+
+  .tab-button.active {
+    border-left: none;
+    border-bottom: 3px solid #666;
   }
 }

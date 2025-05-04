@@ -1,0 +1,192 @@
+/* Basic container styling - updated for dark theme */
+.recipe-list-container {
+    font-family: sans-serif;
+    max-width: 950px;
+    margin: 30px auto 0 auto;
+    border-radius: 8px;
+    text-align: left;
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Heading */
+.recipe-list-container h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Recipe list overall - Revert to standard vertical list */
+.recipe-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual recipe styling - updated for dark theme */
+.recipe {
+    display: flex;
+    align-items: center;
+    border: 1px solid #333;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    min-height: 60px;
+    transition: background-color 0.2s ease;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    scale: 1;
+}
+
+.recipe:hover {
+    background-color: #2a2a2a;
+}
+
+/* Equals sign */
+.equals {
+    margin: 0 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ccc;
+}
+
+/* Shared styles for result and ingredient items */
+.result-item,
+.ingredient-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 50px;
+}
+
+/* Image styling - updated for dark theme */
+.result-item img,
+.ingredient-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+/* Amount styling */
+.amount {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 0.8em;
+    padding: 1px 4px;
+    border-radius: 3px;
+    min-width: 10px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Ingredients container */
+.ingredients {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Loading and Error states - updated for dark theme */
+.loading,
+.error {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+/* Placeholder for missing images */
+.placeholder-image {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+/* Custom scrollbar for the container (optional) */
+.recipe-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.recipe-list-container::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 8px;
+}
+
+.recipe-list-container::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 8px;
+    border: 2px solid #1e1e1e;
+}
+
+.recipe-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #444;
+}
+
+.search-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
+}
+
+.recipe-list-container {
+    text-align: left;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ingredient-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+@media (max-width: 768px) {
+    .search-filters {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

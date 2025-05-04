@@ -5,9 +5,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  /* Prevent body scrolling */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Custom Scrollbar Styles for results container */
+.results-container::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the scrollbar */
+}
+
+.results-container::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  /* Color of the tracking area */
+  border-radius: 4px;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+  background-color: #555;
+  /* Color of the scroll thumb */
+  border-radius: 4px;
+  /* Roundness of the scroll thumb */
+  border: 2px solid #2a2a2a;
+  /* Creates padding around thumb */
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+  /* Color on hover */
 }

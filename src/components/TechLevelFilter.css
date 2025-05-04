@@ -1,0 +1,30 @@
+.tech-level-filter {
+    margin-bottom: 1rem;
+}
+
+.tech-level-select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.tech-level-select:hover {
+    border-color: #666;
+}
+
+.tech-level-select:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
+}
+
+.tech-level-select option {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
